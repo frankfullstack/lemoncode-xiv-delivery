@@ -1,0 +1,24 @@
+/**
+* Dark Theme
+*/
+@use "../helpers" as helpers;
+
+// Backgrounds and colors
+$base_background_color: #303F9F;
+$base_text_color: #fff;
+$important_background_color: #FF4081;
+$important_text_color: #fff;
+$warning_background_color: #FFA000;
+$warning_text_color: #FFECB3;
+
+
+// Fonts
+$base_font: "Roboto Condensed";
+$secondary_font: "Helvetica";
+$box_font: "Roboto Condensed";
+
+// Shadows
+.shadow_box {
+    @include helpers.rounded(.5rem);
+    @include helpers.box-shadow(-10px, 10px, 5px, #999);
+}

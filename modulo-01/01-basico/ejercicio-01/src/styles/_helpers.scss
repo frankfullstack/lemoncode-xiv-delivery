@@ -1,0 +1,61 @@
+@use "base" as *;
+
+.margin-full-center {
+    width: 100vw;
+    margin: 0 auto;
+}
+
+
+.text-center {
+    text-align: center;
+}
+
+.flex-centered {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-center-all {
+    display: flex;
+    @extend .flex-centered;
+    column-gap: .5rem;
+}
+
+.flex-vertical-centered {
+    display: flex;
+    flex-direction: column;
+    @extend .flex-centered;
+}
+
+@function generate-contrast($color, $dark, $light) {
+    @return if(lightness($color) < $threshold, $light, $dark);
+}
+
+@mixin box-color($background-color, $dark: $dark-text-color, $light: $light-text-color) {
+    background-color: $background-color;
+    color: generate-contrast($background-color, $dark, $light);
+}
+
+@mixin darken-palette($background-color) {
+    $i: 1;
+
+    @for $i from 1 through 4 {
+        @each $color-name, $color in $base-background-colors {
+            .#{$color-name}-darken-#{$i} {
+                @include box-color(darken($color, $i * 7.5%));
+            }
+        }
+    }
+}
+
+@mixin lighten-palette($background-color) {
+    $i: 1;
+
+    @for $i from 1 through 4 {
+        @each $color-name, $color in $base-background-colors {
+            .#{$color-name}-lighten-#{$i} {
+                @include box-color(lighten($color, $i * 7.5%));
+            }
+        }
+    }
+}
