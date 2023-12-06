@@ -1,0 +1,90 @@
+@use "base";
+@use "helpers" as helpers;
+
+// Comment to use some of them
+
+@use "themes/light" as theming;
+// @use "themes/dark" as theming;
+
+* {
+    box-sizing: border-box;
+}
+
+.theme_title {
+    width: 100vw;
+    text-align: center;
+}
+
+.theme_container {
+    width: 120px;
+    max-width: 120px;
+    margin: 0 auto;
+}
+
+.boxes_container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.fonts_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.shadowed_box_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.shadowed_box {
+    @extend .box;
+    border: 1px solid #000;
+    padding: 5px 10px;
+}
+
+.box {
+    height: 65px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.base_box,
+.important_box,
+.warning_box {
+    @extend .box;
+}
+
+.base_box {
+    background-color: theming.$base_background_color;
+    color: theming.$base_text_color;
+}
+
+.important_box {
+    background-color: theming.$important_background_color;;
+    color: theming.$important_text_color;
+}
+
+.warning_box {
+    background-color: theming.$warning_background_color;;
+    color: theming.$warning_text_color;
+}
+
+.base_font {
+    font-family: theming.$base_font;
+}
+
+.secondary_font {
+    font-family: theming.$secondary_font;
+}
+
+.shadow_box {
+    @extend .shadowed_box;
+    font-family: theming.$box_font;
+}

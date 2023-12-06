@@ -1,0 +1,13 @@
+{
+  "name": "ejercicio-02",
+  "version": "1.0.0",
+  "description": "Modulo 01 - Basico - Ejercicio 02",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "frankfullstack <frankfullstack@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {}
+}

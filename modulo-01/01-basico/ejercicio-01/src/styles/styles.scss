@@ -1,0 +1,66 @@
+@use "base" as *;
+@use "helpers" as helpers;
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: $font-family;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.color-palettes-title {
+    @extend .margin-full-center;
+    @extend .text-center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.container {
+    @extend .margin-full-center;
+    @extend .flex-center-all;
+    margin-bottom: 1rem;
+}
+
+.box {
+    padding: .5rem 1rem;
+    height: 50px;
+    @extend .flex-center-all;
+    border-radius: $base-corner-radius;
+    font-weight: 500;
+}
+
+@each $container in $containers {
+    .#{$container}-palette {
+        @extend .flex-vertical-centered;
+        h2 {
+            font-size: .8rem;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+    }
+
+    .#{$container}-container {
+        @extend .container;
+    }
+}
+
+@each $color-name,
+$color in $base-background-colors {
+    .#{$color-name}-base-color {
+        @include helpers.box-color($color);
+    }
+}
+
+@include helpers.darken-palette(map-get($base-background-colors, primary));
+@include helpers.darken-palette(map-get($base-background-colors, secondary));
+@include helpers.darken-palette(map-get($base-background-colors, tertiary));
+
+@include helpers.lighten-palette(map-get($base-background-colors, primary));
+@include helpers.lighten-palette(map-get($base-background-colors, secondary));
+@include helpers.lighten-palette(map-get($base-background-colors, tertiary));

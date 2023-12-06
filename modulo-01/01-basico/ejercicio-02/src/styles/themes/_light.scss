@@ -1,0 +1,23 @@
+/**
+* Light Theme
+*/
+@use "../helpers" as helpers;
+
+// Backgrounds and Colors
+$base_background_color: #448AFF;
+$base_text_color: #303F9F;
+$important_background_color: #F8BBD0;
+$important_text_color: #FF4081;
+$warning_background_color: #FFECB3;
+$warning_text_color: #FFA000;
+
+// Fonts
+$base_font: "Montserrat";
+$secondary_font: "Sora";
+$box_font: "Montserrat";
+
+// Shadows
+.shadow_box {
+    @include helpers.rounded(.1rem);
+    @include helpers.box-shadow(10px, 10px, 5px, #999);
+}
