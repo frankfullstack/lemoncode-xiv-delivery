@@ -1,0 +1,88 @@
+@import "./variables";
+@import "./reset";
+
+body {
+  width: 100vw;
+  font-family: Roboto;
+  background-color: $background-color;
+  padding: 0.5rem;
+}
+
+section.card-list {
+  width: 100%;
+  display: grid;
+  padding: 0.5rem;
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
+  grid-template-rows: repeat(3, 1fr);
+  justify-content: space-around;
+  gap: 1rem;
+  @media screen and (max-width: 720px) {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+  }
+  @media screen and (max-width: 540px) {
+    grid-template-columns: repeat(1, minmax(150px, 1fr));
+  }
+  article.card-item {
+    display: flex;
+    flex-direction: column;
+    min-height: 450px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-radius: $base-border-radius;
+    overflow: hidden;
+    &:hover {
+        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.12), 0 2px 7px rgba(0, 0, 0, 0.24);
+    }
+    .card-image {
+      overflow: hidden;
+      width: 100%;
+      height: auto;
+      max-height: 250px;
+      img {
+        object-fit: cover;
+        transition: 0.5s ease-in-out;
+        &:hover {
+          transform: scale(1.2);
+          transform-origin: center;
+          cursor: pointer;
+        }
+      }
+    }
+    .card-content {
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      .card-title {
+        font-size: $base-font-size * 1.25;
+        font-weight: $font-weight-bold;
+        color: $primary-color;
+      }
+      .card-description {
+        font-size: $base-font-size;
+        text-align: justify;
+      }
+      .card-date-info {
+        align-self: flex-end;
+        margin: 1rem 0 1rem auto;
+        font-size: $base-font-size * 0.8;
+        .published-at {
+          font-weight: $font-weight-bold;
+          color: $accent-color;
+        }
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font-weight: $font-weight-bold;
+        color: $primary-text-color;
+        background-color: $accent-color;
+        border-radius: $base-border-radius;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        &:hover {
+          background-color: darken($accent-color, 10%);
+        }
+      }
+    }
+  }
+}
