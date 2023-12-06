@@ -10,7 +10,6 @@
   "author": "frankfullstack <frankfullstack@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.3",
-    "parcel": "^2.8.3"
+    "node-sass": "^9.0.0"
   }
 }

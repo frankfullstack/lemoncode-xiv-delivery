@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.3"
+    "@parcel/transformer-sass": "^2.10.3"
   },
   "keywords": [],
   "author": "frankfullstack <frankfullstack@gmail.com>",
