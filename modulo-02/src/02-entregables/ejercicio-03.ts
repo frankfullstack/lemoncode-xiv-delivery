@@ -17,7 +17,7 @@ const USER_INPUT_FOR_CLONE: User = {
 
 // Clone function declaration
 
-function clone<T>(source: T):T {
+export function clone<T>(source: T):T {
     return { ...source };
 }
 

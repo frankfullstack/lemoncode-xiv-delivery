@@ -16,7 +16,7 @@ var USER_INPUT_FOR_CLONE = {
     mail: "jonh.doe@mail.com"
 };
 // Clone function declaration
-function clone(source) {
+export function clone(source) {
     return __assign({}, source);
 }
 console.log(clone(USER_INPUT_FOR_CLONE));
