@@ -35,3 +35,23 @@ var clone4 = function (source) {
     return JSON.parse(JSON.stringify(source));
 };
 console.log(clone4(USER_INPUT_FOR_CLONE));
+var USER_INPUT1_FOR_MERGE = {
+    firstName: 'John',
+    lastName: 'Doe',
+    mail: 'jonh.doe@mail.com'
+};
+var USER_INPUT2_FOR_MERGE = {
+    firstName: 'Jane',
+    lastName: 'Doe',
+    mail: 'jane.doe@mail.com'
+};
+// Merge function declaration
+function merge(target, source) {
+    return clone(__assign(__assign({}, target), source));
+}
+console.log(USER_INPUT1_FOR_MERGE, USER_INPUT2_FOR_MERGE, merge(USER_INPUT1_FOR_MERGE, USER_INPUT2_FOR_MERGE));
+// Merge function expression
+var mergeExpression = function (target, source) {
+    return clone(__assign(__assign({}, target), source));
+};
+console.log(USER_INPUT1_FOR_MERGE, USER_INPUT2_FOR_MERGE, mergeExpression(USER_INPUT1_FOR_MERGE, USER_INPUT2_FOR_MERGE));
