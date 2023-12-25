@@ -96,4 +96,3 @@ function lastTypedFunction(values) {
     return values[values.length - 1];
 }
 console.log("Result of Typed function: ".concat(lastTypedFunction(INPUT_LAST_VALUES)));
-export {};
