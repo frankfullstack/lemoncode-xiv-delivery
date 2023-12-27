@@ -1,0 +1,8 @@
+@use "./reset";
+@use "./variables" as vars;
+@use "./functions" as funcs;
+
+h1 {
+  color: vars.$primary_color;
+  padding: funcs.toRem(16);
+}
