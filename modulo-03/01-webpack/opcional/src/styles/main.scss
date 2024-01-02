@@ -1,0 +1,8 @@
+@use "./reset";
+@use "./variables" as vars;
+@use "./functions" as funcs;
+@use "./mixins" as mixins;
+
+body {
+  font-family: vars.$base-font-family;
+}

@@ -1,0 +1,11 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/functions" as funcs;
+
+.main-content {
+  padding: funcs.toRem(16) funcs.toRem(12);
+}
+
+.environment {
+    color: vars.$primary_color;
+    font-weight: 500;
+}
