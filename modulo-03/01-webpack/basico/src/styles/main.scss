@@ -1,0 +1,53 @@
+@use "./reset";
+@use "./variables" as vars;
+@use "./functions" as funcs;
+@use "./mixins" as mixins;
+
+body {
+  font-family: vars.$base-font-family;
+}
+
+header.top-bar {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 funcs.toRem(8);
+  align-items: center;
+  @include mixins.box-shadow(
+    0px 0px 5px rgba(0, 0, 0, 0.25),
+    0px 1px 0px #000 inset
+  );
+  .lemoncode-logo {
+    display: flex;
+    gap: funcs.toRem(8);
+    justify-content: flex-start;
+    align-items: center;
+    line-height: 0px;
+    .title {
+      font-size: funcs.toRem(18);
+      margin: 0;
+    }
+    img {
+      width: funcs.toRem(56);
+    }
+  }
+  .auth {
+    a {
+      font-size: funcs.toRem(15);
+      text-decoration: none;
+      &:hover,
+      :visited {
+        color: vars.$primary_color;
+      }
+    }
+  }
+  .lemoncode-logo .title,
+  .auth a {
+    color: vars.$primary_color;
+    font-weight: 500;
+  }
+}
+
+.main-content {
+  padding: funcs.toRem(16) funcs.toRem(12);
+}
