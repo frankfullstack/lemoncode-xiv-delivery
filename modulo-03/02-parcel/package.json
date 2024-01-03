@@ -1,0 +1,33 @@
+{
+  "name": "02-parcel",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.html",
+  "type": "module",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "start": "run-p -l type-check:watch start:dev",
+    "start:dev": "rimraf dist && parcel",
+    "build:basic": "rimraf dist && parcel build --detailed-report",
+    "build:full-details": "rimraf dist && parcel build --reporter @parcel/reporter-bundle-analyzer"
+  },
+  "devDependencies": {
+    "@parcel/reporter-bundle-analyzer": "^2.10.3",
+    "@parcel/transformer-sass": "^2.10.3",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "npm-run-all": "^4.1.5",
+    "parcel": "^2.10.3",
+    "process": "^0.11.10",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "keywords": [],
+  "author": "frankfullstack <frankfullstack@gmail.com>",
+  "license": "MIT"
+}
