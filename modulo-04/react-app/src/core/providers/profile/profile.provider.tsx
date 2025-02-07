@@ -1,6 +1,7 @@
 import React, { createContext, PropsWithChildren, useEffect, useState } from "react";
 import { ProfileContextModel } from "./profile.vm";
 import { useSessionStorage } from "@/core/hooks";
+import { useNavigate } from "react-router-dom";
 
 export const ProfileContext = createContext<ProfileContextModel>(null);
 
@@ -14,8 +15,11 @@ export const ProfileProvider: React.FC<PropsWithChildren<Props>> = ({ components
   const [username, setUsername] = useState<string>("");
     
   const { sessionItem } = useSessionStorage('session');
+
+  const navigate = useNavigate();
   
   useEffect(() => {
+    if(!sessionItem) navigate('/login');
     setUsername(sessionItem);
   }, [sessionItem]);
 

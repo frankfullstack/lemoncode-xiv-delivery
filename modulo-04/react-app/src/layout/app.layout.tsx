@@ -1,12 +1,90 @@
-import { ProfileContext } from '@/core'
-import React, { PropsWithChildren, useContext } from 'react'
+import { ProfileContext } from "@/core";
+import { useSessionStorage } from "@/core/hooks";
+import { AppBar, Toolbar, Typography, Box, IconButton, useTheme, Avatar } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import React, { PropsWithChildren, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
-  const { username } = useContext(ProfileContext);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const theme = useTheme();
+  const isMenuOpen = Boolean(anchorEl);
+
+  const { username, setProfile } = useContext(ProfileContext);
+  const { removeSessionItem } = useSessionStorage("session");
+
+  const navigate = useNavigate();
+
+  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setProfile("")
+    removeSessionItem();
+    navigate('/login');
+  };
+
+
+  const menuId = 'test-menu-id';
+
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem sx={{ pointerEvents: 'none'}}>{ username }</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+    </Menu>
+  );
+
   return (
-    <div className='layout-app-container'>
-      <div className="layout-app-header">{ username }</div>
-      {children}
+    <div className="layout-app-container">
+      <AppBar position="fixed">
+        <Toolbar sx={{ alignItems: 'center' }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: 'block' }}
+          >
+            Lemoncode React Delivery
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: 'flex' }}>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+            >
+              <Avatar sx={{ bgcolor: theme.palette.primary.dark , color: theme.palette.secondary.dark }}>A</Avatar>
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {renderMenu}
+      <Box sx={{ paddingTop: `${theme.mixins.toolbar.minHeight}px` }}>
+        { children }
+      </Box>
     </div>
-  )
-}
+  );
+};
