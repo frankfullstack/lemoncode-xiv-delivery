@@ -1,9 +1,17 @@
-import { ProfileContext } from "@/core";
-import { useSessionStorage } from "@/core/hooks";
-import { AppBar, Toolbar, Typography, Box, IconButton, useTheme, Avatar } from "@mui/material";
+import React, { PropsWithChildren, useContext } from "react";
+import { useTheme } from "@mui/material";
+
+import AppBar from "@mui/material/AppBar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import React, { PropsWithChildren, useContext } from "react";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Avatar from "@mui/material/Avatar";
+
+import { ProfileContext } from "@/core";
+import { useSessionStorage } from "@/core/hooks";
 import { useNavigate } from "react-router-dom";
 
 export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
@@ -25,31 +33,30 @@ export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   const handleLogout = () => {
-    setProfile("")
+    setProfile("");
     removeSessionItem();
-    navigate('/login');
+    navigate("/login");
   };
 
-
-  const menuId = 'test-menu-id';
+  const menuId = "test-menu-id";
 
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
+        vertical: "bottom",
+        horizontal: "right",
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem sx={{ pointerEvents: 'none'}}>{ username }</MenuItem>
+      <MenuItem sx={{ pointerEvents: "none" }}>{username}</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
@@ -57,33 +64,40 @@ export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="layout-app-container">
       <AppBar position="fixed">
-        <Toolbar sx={{ alignItems: 'center' }}>
+        <Toolbar sx={{ alignItems: "center" }}>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: 'block' }}
+            sx={{ display: "block" }}
           >
             Lemoncode React Delivery
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: "flex" }}>
             <IconButton
               size="large"
               edge="end"
-              aria-label="account of current user"
+              aria-label={ `account of ${username}` }
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <Avatar sx={{ bgcolor: theme.palette.primary.dark , color: theme.palette.secondary.dark }}>A</Avatar>
+              <Avatar
+                sx={{
+                  bgcolor: theme.palette.primary.dark,
+                  color: theme.palette.secondary.dark,
+                }}
+              >
+                A
+              </Avatar>
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       {renderMenu}
       <Box sx={{ paddingTop: `${theme.mixins.toolbar.minHeight}px` }}>
-        { children }
+        {children}
       </Box>
     </div>
   );
