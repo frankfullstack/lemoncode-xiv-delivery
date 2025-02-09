@@ -17,9 +17,7 @@ export const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <MembersProvider>
           <AppRouter />
-        </MembersProvider>
       </ThemeProvider>
     </>
   );

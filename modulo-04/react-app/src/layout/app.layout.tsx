@@ -89,14 +89,14 @@ export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   color: theme.palette.secondary.dark,
                 }}
               >
-                A
+                { username.charAt(0).toUpperCase()}
               </Avatar>
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       {renderMenu}
-      <Box sx={{ paddingTop: `${theme.mixins.toolbar.minHeight}px` }}>
+      <Box sx={{ paddingTop: `78px` }}>
         {children}
       </Box>
     </div>

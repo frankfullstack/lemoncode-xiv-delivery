@@ -3,7 +3,7 @@ import { ProfileContextModel } from "./profile.vm";
 import { useSessionStorage } from "@/core/hooks";
 import { useNavigate } from "react-router-dom";
 
-export const ProfileContext = createContext<ProfileContextModel>(null);
+export const ProfileContext = createContext<ProfileContextModel | null>(null);
 
 interface Props {
   components: {

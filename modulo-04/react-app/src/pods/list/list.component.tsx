@@ -1,6 +1,5 @@
 import { MemberEntity } from "@/core";
 import React from "react";
-import { MemberRow } from "./components";
 import ListMUI from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";

@@ -1,6 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { FormData } from "../login.vm";
-import { Button, InputAdornment, TextField } from "@mui/material";
+import { Button, TextField, InputAdornment } from "@mui/material";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 interface Props {
   onSubmit: (username: string, password: string) => void;
@@ -12,6 +14,8 @@ export const LoginForm: React.FC<Props> = ({ onSubmit }) => {
     password: "",
   });
 
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+
   const handleInputChange = () => {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData({
@@ -21,14 +25,21 @@ export const LoginForm: React.FC<Props> = ({ onSubmit }) => {
     };
   };
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    // e.stopPropagation();
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
     onSubmit(formData.username, formData.password);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" || e.key === "enter") {
+      e.preventDefault();
+      onSubmit(formData.username, formData.password);
+    }
+  };
+
   return (
-    <form style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
+    <form style={{ display: "flex", flexDirection: "column", gap: ".75rem" }}>
       <TextField
         label="Username"
         placeholder="Enter your username..."
@@ -37,17 +48,37 @@ export const LoginForm: React.FC<Props> = ({ onSubmit }) => {
         value={formData.username}
         onChange={handleInputChange()}
         helperText="Please enter your name"
+        onKeyDown={handleKeyDown}
       />
       <TextField
         label="Password"
         placeholder="Enter your password..."
-        type="password"
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment
+                position="end"
+                sx={{ cursor: 'pointer' }}
+                onClick={() => setPasswordVisible(!passwordVisible)}
+              >
+                {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </InputAdornment>
+            ),
+          },
+        }}
+        type={passwordVisible ? "text" : "password"}
         name="password"
         value={formData.password}
         onChange={handleInputChange()}
+        onKeyDown={handleKeyDown}
       />
 
-      <Button variant="contained" color="primary" type="button" onClick={handleSubmit}>
+      <Button
+        variant="contained"
+        color="primary"
+        type="button"
+        onClick={handleSubmit}
+      >
         Sign In
       </Button>
     </form>
