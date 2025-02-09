@@ -6,6 +6,6 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   define: {
-    'process.env': {}, // Opcional, para compatibilidad con paquetes que esperen `process.env`
+    'process.env': {},
   },
 })

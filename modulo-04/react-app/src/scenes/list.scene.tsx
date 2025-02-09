@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ListContainer } from "@/pods/list";
-import { useNavigate } from "react-router-dom";
-import { routes } from "@/router";
-import { DetailContainer } from "@/pods/detail";
 
 export const ListScene: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selected, setSelected] = useState("");
   const handleSelectMember = (id: string) => {
-    // navigate(routes.detail(id));
     setSelected(id);
   };
 
   return (
     <>
       <ListContainer onSelectMember={ handleSelectMember } />
-      {/* {selected && (
-        <div>
-          <DetailContainer id={selected} />
-        </div>
-      )} */}
     </>
   );
 };

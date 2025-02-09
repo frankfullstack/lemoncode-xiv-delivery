@@ -53,9 +53,6 @@ export const AppRouter = () => {
             <MembersProvider>
               <PageTransition>
                 <Routes>
-                  {/* <Route path={switchRoutes.root} element={<LoginScene />} /> 
-          // TODO: Review because was causing the avoid login because we moved 
-          // to the render interception in the profile.provider.tsx */}
                   <Route
                     path="*"
                     element={

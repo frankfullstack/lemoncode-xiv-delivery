@@ -1,46 +1,45 @@
 import { MemberEntity } from "@/core";
 import React from "react";
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
 import ListMUI from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { ListItemButton } from "@mui/material";
+import { Badge, useTheme } from "@mui/material";
 import { routes } from "@/router";
 import { useNavigate } from "react-router-dom";
+import { MemberWithFollowers } from "./list.vm";
 
 interface Props {
-  members: MemberEntity[];
+  members: MemberWithFollowers[];
   onSelect?: (id: string) => void;
 }
 
 export const List: React.FC<Props> = ({ members, onSelect }) => {
   const navigate = useNavigate();
+  const theme = useTheme();
+
   return (
-    // <div className="list-user-list-container">
-    //   <span className="list-header">Avatar</span>
-    //   <span className="list-header">Id</span>
-    //   <span className="list-header">Name</span>
-    //   { members ? members.map((member) => (
-    //     <MemberRow key={member.id} member={ member } onSelect={ () => onSelect(member.login) }/>
-    //   )) : <h1>Loading members ...</h1>}
-    // </div>
     <ListMUI>
       {members.map((m) => (
         <React.Fragment key={m.id}>
-          <ListItem disablePadding>
-            <ListItemButton
-              role={undefined}
-              onClick={() => navigate(routes.detail(m.login))}
-            >
+          <ListItem disableGutters disablePadding>
+            <ListItemButton onClick={() => navigate(routes.detail(m.login))}>
               <ListItemAvatar>
-                <Avatar alt={m.login} src={m.avatar_url} />
+                <Avatar
+                  sx={{ width: "48px", height: "auto", mr: 2 }}
+                  alt={m.login}
+                  src={m.avatar_url}
+                />
               </ListItemAvatar>
               <ListItemText
-                primary={m.login}
-                secondary={<Typography>{m.id}</Typography>}
+                primary={<Typography variant="h6">{m.login}</Typography>}
+                secondary={<Typography variant="body2">{"User type: "}{m.type}</Typography>}
               />
             </ListItemButton>
           </ListItem>
