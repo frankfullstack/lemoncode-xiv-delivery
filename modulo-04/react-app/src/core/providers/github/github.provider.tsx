@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useState } from "react";
 
-import { GithubModel } from "./github.model";
+import { GithubModel } from "./";
 
 export const GithubContext = createContext<GithubModel>({
   organization: "lemoncode",

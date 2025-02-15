@@ -1,17 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import {
-  GithubModel,
-  GithubContext,
-  MembersContext,
-  Search,
-  Paginator,
-} from "@/core";
-import { getMembers } from "./api";
-import { List } from "./list.component";
-import Box from "@mui/material/Box";
+import { useContext, useEffect, useState, useRef } from "react";
 import { useTheme } from "@mui/material";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import List from "./list.component";
+import Paginator from "@/core/components/pagination/Paginator";
+import { getMembers } from "./api";
+import { GithubModel, GithubContext, MembersContext, Search, useLocalStorage } from "@/core";
 
 interface Props {
   onSelectMember: (id: string) => void;
@@ -26,9 +22,12 @@ export const ListContainer: React.FC<Props> = ({ onSelectMember }) => {
     currentPage,
     setCurrentPage,
   } = useContext<GithubModel>(GithubContext);
+  const { localStorageItem, storeLocalStorageItem } = useLocalStorage('organization');
   const [input, setInput] = useState<string>(organization);
-  const [totalPages, setTotalPages] = React.useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [emptyStateVisible, setEmptyStateVisible] = useState<boolean>(false);
   const theme = useTheme();
+  const listItemsRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (value: string) => {
     setInput(value);
@@ -36,21 +35,36 @@ export const ListContainer: React.FC<Props> = ({ onSelectMember }) => {
 
   const handleSearch = () => {
     setFilter(input);
-    setOrganization(input);
+    storeLocalStorageItem(input);
     setCurrentPage(1);
+    setEmptyStateVisible(false);
   };
+
+  useEffect(() => {
+    if(localStorageItem) {
+      setOrganization(localStorageItem);
+      handleSearch();
+    }
+  }, []);
 
   useEffect(() => {
     getMembers(filter, currentPage).then(
       ({ members: membersResponse, totalPages }) => {
         updateMembers(membersResponse);
         setTotalPages(totalPages);
+        setEmptyStateVisible(true);
       }
     );
   }, [filter, currentPage]);
 
   const handleChangePage = (value: number) => {
     setCurrentPage(value);
+    if(listItemsRef.current) {
+      listItemsRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
   };
 
   const { members: membersFromGlobalContext, updateMembers } =
@@ -65,43 +79,54 @@ export const ListContainer: React.FC<Props> = ({ onSelectMember }) => {
           onInputChange={handleInputChange}
           onSearch={handleSearch}
         />
-
         <section className="search-organization-info">
           <Typography sx={{ pt: 2 }} variant="h5">
             Search result for <strong>{organization}</strong>
           </Typography>
         </section>
-        <Box
-          sx={{
-            maxHeight: "498px",
-            overflowY: "scroll",
-            my: 2,
-            "&:hover::-webkit-scrollbar": {
-              width: "8px",
-            },
-            "&:hover::-webkit-scrollbar-thumb": {
-              backgroundColor: theme.palette.primary.dark,
-              borderRadius: "4px",
-            },
-            "&:hover::-webkit-scrollbar-thumb:hover": {
-              backgroundColor: theme.palette.primary.dark,
-            },
-            "&:hover::-webkit-scrollbar-track": {
-              backgroundColor: theme.palette.primary.light,
-            },
-          }}
-          display="flex"
-          flexDirection="column"
-        >
-          <List members={membersFromGlobalContext} />
-        </Box>
-        <Box display="flex" flexDirection="column" alignItems="center">
-          <Paginator
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={handleChangePage}
-          />
-        </Box>
+        {membersFromGlobalContext.length > 0 && (
+          <Box
+            className="members-list-container"
+          >
+            <Box
+              display="flex"
+              flexDirection="column"
+              ref={listItemsRef}
+              sx={{
+                maxHeight: "498px",
+                overflowY: "auto",
+                my: 2,
+                "&::-webkit-scrollbar": {
+                  width: "8px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: theme.palette.primary.dark,
+                  borderRadius: "4px",
+                },
+                "&::-webkit-scrollbar-thumb:hover": {
+                  backgroundColor: theme.palette.primary.dark,
+                },
+                "&::-webkit-scrollbar-track": {
+                  backgroundColor: theme.palette.primary.light,
+                },
+              }}
+            >
+              <List members={membersFromGlobalContext} />
+            </Box>
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <Paginator
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handleChangePage}
+              />
+            </Box>
+          </Box>
+        )}
+        {emptyStateVisible && membersFromGlobalContext.length === 0 && (
+          <Alert sx={{ mt: 2 }} severity="info" variant="outlined">
+            No results were found for: {organization}
+          </Alert>
+        )}
       </Box>
     </Container>
   );

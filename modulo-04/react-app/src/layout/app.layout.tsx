@@ -11,8 +11,9 @@ import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 
 import { ProfileContext } from "@/core";
-import { useSessionStorage } from "@/core/hooks";
+import { useLocalStorage, useSessionStorage } from "@/core/hooks";
 import { useNavigate } from "react-router-dom";
+import { ProfileContextModel } from "@/core/providers/profile/profile.vm";
 
 export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -21,6 +22,8 @@ export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
   const { username, setProfile } = useContext(ProfileContext);
   const { removeSessionItem } = useSessionStorage("session");
+  const { removeLocalStorageItem } =
+    useLocalStorage("organization");
 
   const navigate = useNavigate();
 
@@ -33,8 +36,9 @@ export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   const handleLogout = () => {
-    setProfile("");
+    if(setProfile) setProfile("");
     removeSessionItem();
+    removeLocalStorageItem();
     navigate("/login");
   };
 
@@ -78,7 +82,7 @@ export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
             <IconButton
               size="large"
               edge="end"
-              aria-label={ `account of ${username}` }
+              aria-label={`account of ${username}`}
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
@@ -89,16 +93,14 @@ export const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   color: theme.palette.secondary.dark,
                 }}
               >
-                { username.charAt(0).toUpperCase()}
+                {username.charAt(0).toUpperCase()}
               </Avatar>
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       {renderMenu}
-      <Box sx={{ paddingTop: `78px` }}>
-        {children}
-      </Box>
+      <Box sx={{ paddingTop: `78px` }}>{children}</Box>
     </div>
   );
 };

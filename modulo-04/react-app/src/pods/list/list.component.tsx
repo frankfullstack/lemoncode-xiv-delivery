@@ -1,7 +1,6 @@
-import { MemberEntity } from "@/core";
 import React from "react";
-import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
+import { routes } from "@/router";
+import { useNavigate } from "react-router-dom";
 import ListMUI from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItem from "@mui/material/ListItem";
@@ -10,19 +9,15 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { Badge, useTheme } from "@mui/material";
-import { routes } from "@/router";
-import { useNavigate } from "react-router-dom";
-import { MemberWithFollowers } from "./list.vm";
+import { MemberEntity } from "./list.vm";
 
 interface Props {
-  members: MemberWithFollowers[];
+  members: MemberEntity[];
   onSelect?: (id: string) => void;
 }
 
-export const List: React.FC<Props> = ({ members, onSelect }) => {
+const List: React.FC<Props> = ({ members, onSelect }) => {
   const navigate = useNavigate();
-  const theme = useTheme();
 
   return (
     <ListMUI>
@@ -49,3 +44,5 @@ export const List: React.FC<Props> = ({ members, onSelect }) => {
     </ListMUI>
   );
 };
+
+export default List;

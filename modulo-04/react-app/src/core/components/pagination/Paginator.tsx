@@ -6,7 +6,7 @@ interface PaginatorProps {
   onPageChange: (page: number) => void;
 }
 
-export const Paginator: React.FC<PaginatorProps> = ({
+const Paginator: React.FC<PaginatorProps> = ({
   currentPage,
   totalPages,
   onPageChange,
@@ -51,3 +51,5 @@ export const Paginator: React.FC<PaginatorProps> = ({
     ></Pagination>
   );
 };
+
+export default Paginator;
