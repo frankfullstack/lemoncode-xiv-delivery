@@ -9,8 +9,8 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import GithubIcon from "@mui/icons-material/GitHub";
 import Typography from "@mui/material/Typography";
-import { MemberDetail } from "./detail.vm";
 import { DetailStats } from "@/core";
+import { MemberDetail } from "./detail.vm";
 
 interface Props {
   member: MemberDetail;

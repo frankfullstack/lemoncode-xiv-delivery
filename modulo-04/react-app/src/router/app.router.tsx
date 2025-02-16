@@ -26,7 +26,7 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <Backdrop sx={{ color: "#fff", zIndex: 999 }} open={loading}>
+      <Backdrop sx={{ color: (theme.palette.common.white), zIndex: 999 }} open={loading}>
         <CircularProgress
           size={100}
           sx={{ color: theme.palette.primary.dark }}

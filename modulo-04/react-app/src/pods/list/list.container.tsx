@@ -3,11 +3,11 @@ import { useTheme } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import List from "./list.component";
 import Paginator from "@/core/components/pagination/Paginator";
-import { getMembers } from "./api";
+import Typography from "@mui/material/Typography";
 import { GithubModel, GithubContext, MembersContext, Search, useLocalStorage } from "@/core";
+import { getMembers } from "./api";
+import List from "./list.component";
 
 interface Props {
   onSelectMember: (id: string) => void;
@@ -22,7 +22,7 @@ export const ListContainer: React.FC<Props> = ({ onSelectMember }) => {
     currentPage,
     setCurrentPage,
   } = useContext<GithubModel>(GithubContext);
-  const { localStorageItem, storeLocalStorageItem } = useLocalStorage('organization');
+  const { localStorageItem: organizationStorageItem, storeLocalStorageItem: storeOrganizationStorageItem } = useLocalStorage('organization');
   const [input, setInput] = useState<string>(organization);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [emptyStateVisible, setEmptyStateVisible] = useState<boolean>(false);
@@ -35,14 +35,14 @@ export const ListContainer: React.FC<Props> = ({ onSelectMember }) => {
 
   const handleSearch = () => {
     setFilter(input);
-    storeLocalStorageItem(input);
+    storeOrganizationStorageItem(input);
     setCurrentPage(1);
     setEmptyStateVisible(false);
   };
 
   useEffect(() => {
-    if(localStorageItem) {
-      setOrganization(localStorageItem);
+    if(organizationStorageItem) {
+      setOrganization(organizationStorageItem);
       handleSearch();
     }
   }, []);
@@ -81,7 +81,7 @@ export const ListContainer: React.FC<Props> = ({ onSelectMember }) => {
         />
         <section className="search-organization-info">
           <Typography sx={{ pt: 2 }} variant="h5">
-            Search result for <strong>{organization}</strong>
+            Search result for <strong>{filter}</strong>
           </Typography>
         </section>
         {membersFromGlobalContext.length > 0 && (

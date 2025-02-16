@@ -25,7 +25,7 @@ export const ProfileProvider: React.FC<PropsWithChildren<Props>> = ({ components
 
   return (
     <ProfileContext.Provider value={{ username: username ?? sessionItem, setProfile: setUsername }}>
-      { (username) ? <> { children } </> : Login /** Cortamos el render para interceptar si no está logado */}
+      { (username) ? <> { children } </> : Login }
     </ProfileContext.Provider>
   );
 };

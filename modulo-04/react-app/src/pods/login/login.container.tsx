@@ -1,10 +1,9 @@
 import React, {useContext, useState} from "react"
 import {Login} from "./login.component"
-import {ProfileContext, useSessionStorage} from "@/core"
 import {CenteredLayout} from "@/layout"
-import {login} from "./api"
+import {ProfileContextModel, ProfileContext, useSessionStorage} from "@/core"
 import lemoncodeLogo from "assets/lemoncode-logo-github.png"
-import {ProfileContextModel} from "@/core/providers/profile/profile.vm"
+import {login} from "./api"
 
 export const LoginContainer: React.FC = () => {
   const { setProfile } = useContext<ProfileContextModel>(ProfileContext);

@@ -34,11 +34,6 @@ body #root {
 }
 
 .layout-center {
-  /* display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  justify-items: center;
-  margin-top: 2rem; */
   display: flex;
   flex: 1;
   justify-content: center;
